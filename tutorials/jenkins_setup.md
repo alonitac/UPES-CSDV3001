@@ -108,7 +108,7 @@ Jenkins uses this directory to store configurations, to perform builds and keep 
 
 # Self-check questions
 
-[Enter the interactive self-check page](https://alonitac.github.io/UPES-CSDV-3001/multichoice-questions/jenkins_setup.html)
+[Enter the interactive self-check page](https://alonitac.github.io/UPES-CSDV3001/multichoice-questions/jenkins_setup.html)
 
 # Exercises 
 
