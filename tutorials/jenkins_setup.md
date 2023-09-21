@@ -27,6 +27,7 @@ sudo apt install openjdk-11-jre
 
 ## Method 2: Install Jenkins locally
 
+Follow the [official installation guide](https://www.jenkins.io/doc/book/installing/linux/) and choose the relevant OS installation. 
 
 
 ## Configure a GitHub webhook
