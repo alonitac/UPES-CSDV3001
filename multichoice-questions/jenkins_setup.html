@@ -1,0 +1,134 @@
+
+    
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>
+    CI/CD - Jenkins setup - multichoice questions
+    </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" xmlns="http://www.w3.org/1999/html">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=TextEncoder%2Ccrypto.subtle"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="github-markdown-css.css">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+    
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+            
+            .floating-button {
+              position: fixed;
+              bottom: 20px; /* Adjust the distance from the bottom as needed */
+              right: 20px; /* Adjust the distance from the right as needed */
+              z-index: 9999; /* Ensure the button appears above other elements */
+            }
+        </style>
+        <script>
+            const solutions = {'1': '24dc9bebea86dd4149d86b7ab672714b2c60b6e76e3f8809133c7f29b5c2d180', '2': '2fdd39a1676c3cfaae61dfa06f4f392f90411bc781578668941250cea7360f69', '3': '7b877f650cb4fcb34cc421916b5138c382484e6ae5f9dcdb38817c87edd5f727'}
+        </script>
+    </head>
+    <body>
+    
+    <article class="markdown-body">  
+    
+    <h1>CI/CD - Jenkins setup - multichoice questions</h1>
+<h3>Question 1</h3>
+<p>Having backups of your Jenkins instance is critically important. </p>
+<p>When backing up Jenkins, you should copy the entire Jenkins home directory (<code>/var/lib/jenkins</code>). 
+This directory contains all the configuration files, job configurations, plugin settings, logs, and other essential data needed to restore Jenkins to a working state.</p>
+<p>The <strong>controller key</strong> file (<code>$JENKINS_HOME/secrets/hudson.util.Secret</code>) is used to encrypt data in the secrets directory that secures credentials.
+This controller key file is <strong>encrypted</strong> by another key file (<code>$JENKINS_HOME/secrets/master.key</code>).</p>
+<p>Never include the <code>master.key</code> in your Jenkins backup!</p>
+<p>What is a recommended approach for securely storing a backup of Jenkins?</p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> Store a copy of the entire Jenkins home directory every day.</li>
+<li><input type="checkbox"> Store a copy of the entire Jenkins home directory every day, excluding the <code>master.key</code> as we don't need it.</li>
+<li><input type="checkbox"> Store a copy of the entire Jenkins home directory every day, excluding the <code>master.key</code>, which should be stored separately in a secure place.</li>
+<li><input type="checkbox"> Store a copy of the entire Jenkins home directory every day, excluding the <code>hudson.util.Secret</code> as we don't need it.</li>
+</ul>
+<h3>Question 2</h3>
+<p>Which of the below might be disadvantage(s) of Jenkins community plugins?</p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> Enhanced functionality</li>
+<li><input type="checkbox"> Compatibility issues</li>
+<li><input type="checkbox"> Security concerns</li>
+<li><input type="checkbox"> Flexibility and customization</li>
+<li><input type="checkbox"> Easy integration with other tools</li>
+<li><input type="checkbox"> Poor documentation and support</li>
+</ul>
+<h3>Question 3</h3>
+<p>When launching Jenkins as a Docker container, what is the default jenkins home directory? </p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> <code>/var/lib/jenkins</code></li>
+<li><input type="checkbox"> <code>/home/jenkins</code></li>
+<li><input type="checkbox"> <code>/var/jenkins_home</code></li>
+<li><input type="checkbox"> <code>JENKINS_HOME</code></li>
+</ul> 
+    
+        <script>
+    
+            function test(){
+                const studentSolution = {};
+    
+                $('ul').each(function (index) {
+                    if ($(this).find('input[type="checkbox"]').length > 0) {
+                      var ulElement = $(this);
+                      var qNum = ($('ul').index(ulElement) + 1) + '';
+
+                      var answerToken = '' + qNum;
+                      ulElement.find('li').each(function () {
+                        var isChecked = $(this).find('input').prop('checked');
+                        answerToken += isChecked ? '1' : '0';
+
+                      });
+
+                      var hashPromise  = crypto.subtle.digest('SHA-256', new TextEncoder().encode(answerToken))
+                        .then((hashBuffer) => {
+                          var hashArray = Array.from(new Uint8Array(hashBuffer));
+                          var hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+                          return hashHex;
+                        });
+    
+                      studentSolution[qNum] = hashPromise;
+    
+                    }
+                });
+    
+                Promise.allSettled(Object.values(studentSolution))
+                  .then(function (results) {
+                    results.forEach(function (result, i) {
+                       studentSolution[(i + 1) + ''] = result.value;
+                    });
+                }).then(function () {
+
+                    console.log(studentSolution)
+
+                    for (const i in studentSolution) {
+                      console.log('student solution' + studentSolution[i]);
+                      if (solutions[i] === studentSolution[i]) {
+                        $("h2:contains('Question " + i + "'):first").css('color', 'green');
+                      } else {
+                        $("h2:contains('Question " + i + "'):first").css('color', 'red');
+                      }
+                    }
+                });
+            }
+    
+        </script>
+    
+        <input type="button" class="floating-button" value="Test" onclick="test()">
+    
+    </article>
+    </body>
+    </html>
+    
+    
