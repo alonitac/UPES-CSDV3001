@@ -1,13 +1,5 @@
 # Continuous Integration and Continuous Deployment
 
-## Course onboarding
-
-Please complete the [onboarding tutorial](tutorials/onboarding.md) for the next class.
-
-## Course Staff
-
-**Teacher**: Alon Itach - +972524848860
-
 ## Course schedule
 
 | Date | Hours (india time) | Topic                                                                                                                  |

@@ -40,10 +40,34 @@ When a webhook is configured, GitHub will send a HTTP POST request to a specifie
 
 1. If you don't have it yet, create a new GitHub repository and copy the files under the `roberta` directory to the root directory of your repo, push it.
 2. To set up a webhook from GitHub to the Jenkins server, on your GitHub repository page, go to **Settings**. From there, click **Webhooks**, then **Add webhook**.
-3. In the **Payload URL** field, type `http://<jenkins-ip>:8080/github-webhook/`. In the **Content type** select: `application/json` and leave the **Secret** field empty.
+3. In the **Payload URL** field, type `http://<jenkins-ip>:8080/github-webhook/` (if you run the Jenkins server locally, please read the note below). In the **Content type** select: `application/json` and leave the **Secret** field empty.
 4. Choose the following events to be sent in the webhook:
     1. Pushes
     2. Pull requests
+
+#### Note for students running their Jenkins server locally
+
+As your Jenkins server is being running locally, it is not accessible over the internet. 
+This creates a communication challenge between GitHub and your Jenkins server, since GitHub has to notify Jenkins when events occur in the repo.
+
+[Ngrok](https://ngrok.com/) can solve this problem by creating a secure tunnel between the local machine (where the Jenkins is running) and a public URL provided by Ngrok.
+It exposes the local server to the internet, allowing GitHub servers to reach the webhook URL and send updates to Jenkins.
+
+Sign-up for the Ngrok service (or any another tunneling service to your choice), then install the `ngrok` agent as [described here](https://ngrok.com/docs/getting-started/#step-2-install-the-ngrok-agent). 
+
+Authenticate your ngrok agent. You only have to do this once:
+
+```bash
+ngrok config add-authtoken <your-authtoken>
+```
+
+Since the Jenkins service is listening on port `8080`, start ngrok by running the following command:
+
+```bash
+ngrok http 8080
+```
+
+Your Jenkins public URL is the URL specified in the `Forwarding` line (e.g. `https://16ae-2a06-c701-4501-3a00-ecce-30e9-3e61-3069.ngrok-free.app`).
 
 ## Managing Jenkins
 
