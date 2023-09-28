@@ -5,7 +5,7 @@
 | Date | Hours (india time) | Topic                                                                                                                 |
 | ---- |--------------------|-----------------------------------------------------------------------------------------------------------------------| 
 | 22\9 | 	9:00-10:00       | [CI/CD Intro](https://alonitac.github.io/UPES-CSDV3001/slides/cicd.html), [Jenkins setup](tutorials/jenkins_setup.md) | 
-| 29\9 | 	9:00-10:00       |                                                                                                                       | 
+| 29\9 | 	9:00-10:00       | [Jenkins Pipelines](tutorials/jenkins_pipelines.md)                                                                   | 
 | 2\10 | 	9:00-10:00       | 	                                                                                                                     | 
 | 3\10 | 	9:00-10:00       |                                                                                                                       | 
 | 4\10 | 	9:00-10:00       |                                                                                                                       | 

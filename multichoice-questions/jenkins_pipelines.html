@@ -1,0 +1,276 @@
+
+    
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>
+    CI/CD - Jenkins pipelines - multichoice questions
+    </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" xmlns="http://www.w3.org/1999/html">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=TextEncoder%2Ccrypto.subtle"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="github-markdown-css.css">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+    
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+            
+            .floating-button {
+              position: fixed;
+              bottom: 20px; /* Adjust the distance from the bottom as needed */
+              right: 20px; /* Adjust the distance from the right as needed */
+              z-index: 9999; /* Ensure the button appears above other elements */
+            }
+        </style>
+        <script>
+            const solutions = {'1': '161652878e6276f6524f339828c9ce54d35f04e3f4d1c3e7d632248697bb715d', '2': '971e28bfa6d58f307ceb7acaa4a7720c1b96029fe5a86dbd962a85ed90f7e69d', '3': 'dee0e46ee9d67151bdf0e8b4fc1b33070c9713fe3299ea46be32e4bcc997ed6b', '4': '0c45b42d0b5f32c1afb63cbceb970f39b11da5ba85d02e1f19c74917f50f1542', '5': '8e99960adea594f6a182af856afa579d41f4230ab3e13a07e379ed359710cbe0', '6': 'f1ede85063de36b37686b6a5c9b998529aa2e850578229c284e68956c7d1ba8f', '7': '6a116b47a793ad258fe787f115bfa9374b2160981ff6345dfef4cd3acbe3f8b5'}
+        </script>
+    </head>
+    <body>
+    
+    <article class="markdown-body">  
+    
+    <h1>CI/CD - Jenkins pipelines - multichoice questions</h1>
+<h2>Question 1</h2>
+<p>Choose the correct sentence(s) for an <strong>Executor</strong>:</p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> A slot for execution of work defined by a Pipeline.</li>
+<li><input type="checkbox"> Executor is the central coordinating process which stores configuration, loads plugins, and renders the various user interfaces for Jenkins.</li>
+<li><input type="checkbox"> A Node may have zero or more executors configured.</li>
+<li><input type="checkbox"> A user-configured description of work which Jenkins should perform.</li>
+<li><input type="checkbox"> The number of executors in a node define how many concurrent jobs are able to execute on that Node.</li>
+</ul>
+<h2>Question 2</h2>
+<p>Given the stage:</p>
+<pre><code class="language-text">stage(&quot;Determine new version&quot;) {
+    steps {
+        sh &quot;docker-compose exec -T php-fpm composer --no-ansi --no-interaction tests-ci&quot;
+    }
+
+    post {
+        always {
+            junit &quot;build/junit/*.xml&quot;
+            step([
+                    $class              : &quot;CloverPublisher&quot;,
+                    cloverReportDir     : &quot;build/coverage&quot;,
+                    cloverReportFileName: &quot;clover.xml&quot;
+            ])
+        }
+    }
+}
+</code></pre>
+<p>Which of the following lines should be added to the <code>stage{}</code> scope such that the stage would be executed only when the job was originated from branch <code>main</code>? </p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> Add <code>branch { "main" }</code>.</li>
+<li><input type="checkbox"> Add <code>return "main"</code>.</li>
+<li><input type="checkbox"> Add <code>when { branch "main" }</code>.</li>
+<li><input type="checkbox"> None of the above </li>
+</ul>
+<h2>Question 3</h2>
+<p>Given:</p>
+<pre><code class="language-text">pipeline {
+    agent any
+
+    environment {
+        TEST_PREFIX = &quot;test&quot; 
+        TEST_IMAGE = &quot;${env.TEST_PREFIX}:${env.BUILD_NUMBER}&quot;
+        REGISTRY_AUTH = credentials(&quot;docker-registry&quot;)
+        IS_NEW_VERSION = &quot;YES&quot;
+        REGISTRY_ADDRESS = &quot;hub.docker.io&quot;
+    }
+
+    stages {
+        stage(&quot;Login&quot;) {
+            when {
+                environment name: &quot;IS_NEW_VERSION&quot;, value: &quot;YES&quot;
+            }
+
+            steps {
+                script {
+                    env.IS_NEW_VERSION = sh(returnStdout: true, script: echo 'NO'&quot;).trim()
+                }
+
+                sh &quot;docker login -u=$REGISTRY_AUTH_USR -p=$REGISTRY_AUTH_PSW ${env.REGISTRY_ADDRESS}&quot;
+            }
+        }
+        stage(&quot;Sample stage&quot;) {
+            when {
+                environment name: &quot;IS_NEW_VERSION&quot;, value: &quot;YES&quot;
+            }
+
+            steps {                
+                sh &quot;echo worked!&quot;
+            }
+        }
+    }
+}
+</code></pre>
+<p>Assuming the <code>Login</code> stage has been executed successfully, will the <code>Sample stage</code> stage be executed?</p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> Yes</li>
+<li><input type="checkbox"> No</li>
+<li><input type="checkbox"> Depending on the value of the <code>TEST_IMAGE</code> variable</li>
+<li><input type="checkbox"> None of the above</li>
+</ul>
+<h2>Question 4</h2>
+<p>Given the following pipeline:</p>
+<pre><code class="language-text">pipeline {
+    agent any
+
+    environment {
+        IS_NEW_VERSION = &quot;YES&quot;
+    }
+
+    stages {
+        stage(&quot;Deploy to production&quot;) {
+            when {
+                environment name: &quot;IS_NEW_VERSION&quot;, value: &quot;YES&quot;
+            }
+
+            steps {
+                sh &quot;exit 5&quot;
+            }
+
+            post {
+                success {
+                    slackSend(
+                            teamDomain: &quot;${env.SLACK_TEAM_DOMAIN}&quot;,
+                            token: &quot;${env.SLACK_TOKEN}&quot;,
+                            channel: &quot;${env.SLACK_CHANNEL}&quot;,
+                            color: &quot;good&quot;,
+                            message: &quot;${env.STACK_PREFIX} production deploy: *${env.DEPLOY_VERSION}*. &lt;${env.DEPLOY_URL}|Access service&gt; - &lt;${env.BUILD_URL}|Check build&gt;&quot;
+                    )
+                }
+
+                failure {
+                    slackSend(
+                            teamDomain: &quot;${env.SLACK_TEAM_DOMAIN}&quot;,
+                            token: &quot;${env.SLACK_TOKEN}&quot;,
+                            channel: &quot;${env.SLACK_CHANNEL}&quot;,
+                            color: &quot;danger&quot;,
+                            message: &quot;${env.STACK_PREFIX} production deploy failed: *${env.DEPLOY_VERSION}*. &lt;${env.BUILD_URL}|Check build&gt;&quot;
+                    )
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>Assuming the <a href="https://plugins.jenkins.io/slack/">Slack Notification</a> was installed and configured properly in the Jenkins server:</p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> Success message would be sent to the Slack channel</li>
+<li><input type="checkbox"> Failure message would be sent to the Slack channel</li>
+<li><input type="checkbox"> The stage wouldn't be running </li>
+<li><input type="checkbox"> None of the above</li>
+</ul>
+<h2>Question 5</h2>
+<p>What is the primary purpose of discarding concurrent builds in a <strong>deployment</strong> pipeline?</p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> To speed up the deployment process by deploying multiple builds simultaneously.</li>
+<li><input type="checkbox"> To ensure that only one build is deployed to production at a time.</li>
+<li><input type="checkbox"> To create redundancy in case of deployment failures.</li>
+<li><input type="checkbox"> To test the stability of the production environment with multiple builds.</li>
+</ul>
+<h2>Question 6</h2>
+<p>You have set up a Jenkins pipline which pushes an image to ERC. 
+Recently, you've noticed that sometimes the pipeline gets stuck due to unavailability or ECR:</p>
+<pre><code class="language-text">The push refers to repository [xxxxxxxxxxx.dkr.ecr.ca-central-1.amazonaws.com/reponame]
+714c1b96dd83: Retrying in 1 second 
+d2cdc77dd068: Retrying in 1 second 
+30aad807caf5: Retrying in 1 second 
+0559774c4ea2: Retrying in 1 second 
+285b8616682f: Retrying in 1 second 
+4aeea0ec2b15: Waiting 
+1b1312f842d8: Waiting 
+c310009e0ef3: Waiting 
+a48777e566d3: Waiting 
+2a0c9f28029a: Waiting 
+</code></pre>
+<p>This issues resulted and prolonged blocking of your build and deployment pipelines. </p>
+<p>How can you address this issue? </p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> Disable concurrent builds: <code>options { disableConcurrentBuilds() }</code></li>
+<li><input type="checkbox"> Add a build timeout: <code>options { timeout(time: 25, unit: 'MINUTES') }</code></li>
+<li><input type="checkbox"> Preserve build stashes: <code>options { preserveStashes(buildCount: 5) }</code></li>
+<li><input type="checkbox"> Open a support ticket to AWS team</li>
+</ul>
+<h2>Question 7</h2>
+<p>You have set up a Jenkins server on a private subnet in your organization's network.
+Your development team uses GitHub for version control, and you want to trigger Jenkins jobs automatically when code is pushed to the GitHub repository.
+However, you're facing issues with triggering the jobs due to the Jenkins server's location on the private subnet.</p>
+<p>Which method can you use to address this issue effectively?</p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> Configure GitHub webhooks to trigger Jenkins jobs.</li>
+<li><input type="checkbox"> Generate SSH keys and establish a secure connection between your GitHub repository and the Jenkins server.</li>
+<li><input type="checkbox"> Use GitHub Actions. </li>
+<li><input type="checkbox"> Set up a polling mechanism in Jenkins to periodically check the GitHub repository for code changes.</li>
+</ul> 
+    
+        <script>
+    
+            function test(){
+                const studentSolution = {};
+    
+                $('ul').each(function (index) {
+                    if ($(this).find('input[type="checkbox"]').length > 0) {
+                      var ulElement = $(this);
+                      var qNum = ($('ul').index(ulElement) + 1) + '';
+
+                      var answerToken = '' + qNum;
+                      ulElement.find('li').each(function () {
+                        var isChecked = $(this).find('input').prop('checked');
+                        answerToken += isChecked ? '1' : '0';
+
+                      });
+
+                      var hashPromise  = crypto.subtle.digest('SHA-256', new TextEncoder().encode(answerToken))
+                        .then((hashBuffer) => {
+                          var hashArray = Array.from(new Uint8Array(hashBuffer));
+                          var hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+                          return hashHex;
+                        });
+    
+                      studentSolution[qNum] = hashPromise;
+    
+                    }
+                });
+    
+                Promise.allSettled(Object.values(studentSolution))
+                  .then(function (results) {
+                    results.forEach(function (result, i) {
+                       studentSolution[(i + 1) + ''] = result.value;
+                    });
+                }).then(function () {
+
+                    console.log(studentSolution)
+
+                    for (const i in studentSolution) {
+                      console.log('student solution' + studentSolution[i]);
+                      if (solutions[i] === studentSolution[i]) {
+                        $("h2:contains('Question " + i + "'):first").css('color', 'green');
+                      } else {
+                        $("h2:contains('Question " + i + "'):first").css('color', 'red');
+                      }
+                    }
+                });
+            }
+    
+        </script>
+    
+        <input type="button" class="floating-button" value="Test" onclick="test()">
+    
+    </article>
+    </body>
+    </html>
+    
+    
