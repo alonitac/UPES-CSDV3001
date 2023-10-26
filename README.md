@@ -15,12 +15,12 @@
 | 20\10     | 	9:00-10:00        | [Pull Request testing](tutorials/jenkins_pr_testing.md)                                                              | 
 | 27\10     | 	9:00-10:00        | [Pull Request testing](tutorials/jenkins_pr_testing.md)                                                              | 
 | 3\11      | 	9:00-10:00        | [Jenkins agents](tutorials/jenkins_pr_testing.md)                                                                    | 
-| 10\11     | 	9:00-10:00        | [Jenkins agents](tutorials/jenkins_pr_testing.md)                                                                                   | 
-| 17\11     | 	9:00-10:00        | Static code analysis with SonarQube                                                                                  | 
-| 24\11     | 	9:00-10:00        | Static code analysis with SonarQube                                                                                                                     | 
-| 1\12      | 	9:00-10:00        | Static code analysis with SonarQube                                                                                               | 
-| 8\12      | 	9:00-10:00        | Nexus artifacts server                                                                                                         | 
-| ?         | 	9:00-10:00        | Nexus artifacts server                                                                                                       | 
-| ?         | 	9:00-10:00        | Nexus artifacts server                                                                                                       | 
-| ?         | 	9:00-10:00        | GitHub Actions                                                                                                       | 
-| ?         | 	9:00-10:00        | GitHub Actions                                                                                                       | 
+| 6\11      | 	9:00-10:00        | [Jenkins agents](tutorials/jenkins_pr_testing.md)                                                                                   | 
+| 10\11     | 	9:00-10:00        | Static code analysis with SonarQube                                                                                  | 
+| 13\11     | 	9:00-10:00        | Static code analysis with SonarQube                                                                                                                     | 
+| 17\11     | 	9:00-10:00        | Static code analysis with SonarQube                                                                                               | 
+| 20\11     | 	9:00-10:00        | Nexus artifacts server                                                                                                         | 
+| 24\11     | 	9:00-10:00        | Nexus artifacts server                                                                                                       | 
+| 27\11     | 	9:00-10:00        | Nexus artifacts server                                                                                                       | 
+| 1\12      | 	9:00-10:00        | GitHub Actions                                                                                                       | 
+| 8\12      | 	9:00-10:00        | GitHub Actions                                                                                                       | 
