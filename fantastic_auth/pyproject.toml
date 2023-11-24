@@ -1,0 +1,7 @@
+[build-system]
+
+# requires is a list of packages that are needed to build your package. You don’t need to install them; build frontend will install them automatically in a temporary, isolated virtual environment for use during the build process.
+requires = ["setuptools"]
+
+# build-backend is the name of the Python object that frontend will use to perform the build.
+build-backend = "setuptools.build_meta"
