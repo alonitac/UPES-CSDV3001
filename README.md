@@ -24,4 +24,4 @@
 | ~~27\11~~ | 	~~9:00-10:00~~    | [Static code analysis with SonarQube](tutorials/sonarqube.md)                                                         | 
 | 1\12      | 	9:00-10:00        | Static code analysis with SonarQube                                                                                   | 
 | 4\12      | 	9:00-10:00        | Static code analysis with SonarQube                                                                                   | 
-| 8\12      | 	9:00-10:00        | Static code analysis with SonarQube                                                                                   | 
+| 8\12      | 	9:00-10:00        | GitHub actions                                                                                                        | 
