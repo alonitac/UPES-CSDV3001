@@ -1,5 +1,13 @@
 # Continuous Integration and Continuous Deployment
 
+## Practice questions
+
+- [Jenkins setup](https://alonitac.github.io/UPES-CSDV3001/multichoice-questions/jenkins_setup.html)
+- [Jenkins pipelines](https://alonitac.github.io/UPES-CSDV3001/multichoice-questions/jenkins_pipelines.html)
+- [Jenkins Pull Request testing](https://alonitac.github.io/UPES-CSDV3001/multichoice-questions/jenkins_pr_testing.html)
+- [Nexus artifact repository](https://alonitac.github.io/UPES-CSDV3001/multichoice-questions/artifacts_nexus.html)
+
+
 ## Course schedule
 
 | Date      | Hours (india time) | Topic                                                                                                                 |
@@ -24,4 +32,7 @@
 | ~~27\11~~ | 	~~9:00-10:00~~    | Cancelled due to lecturer late                                                                                        | 
 | 1\12      | 	9:00-10:00        | [Static code analysis with SonarQube](tutorials/sonarqube.md)                                                         | 
 | 4\12      | 	9:00-10:00        | [Static code analysis with SonarQube](tutorials/sonarqube.md)                                                         | 
-| 8\12      | 	9:00-10:00        | GitHub actions                                                                                                        | 
+| 8\12      | 	9:00-10:00        | ~~GitHub actions~~ (was not covered)                                                                                  |
+
+
+

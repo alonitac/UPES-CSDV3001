@@ -1,0 +1,134 @@
+
+    
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>
+    CI/CD - Nexus Artifacts Manager - multichoice questions
+    </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" xmlns="http://www.w3.org/1999/html">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=TextEncoder%2Ccrypto.subtle"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="github-markdown-css.css">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+    
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+            
+            .floating-button {
+              position: fixed;
+              bottom: 20px; /* Adjust the distance from the bottom as needed */
+              right: 20px; /* Adjust the distance from the right as needed */
+              z-index: 9999; /* Ensure the button appears above other elements */
+            }
+        </style>
+        <script>
+            const solutions = {'1': 'e443169117a184f91186b401133b20be670c7c0896f9886075e5d9b81e9d076b', '2': 'a72baf2ea0bfd03b5d99763aaecd821201b45acb2bbe4e7243cb7c459fae576f', '3': '7b877f650cb4fcb34cc421916b5138c382484e6ae5f9dcdb38817c87edd5f727'}
+        </script>
+    </head>
+    <body>
+    
+    <article class="markdown-body">  
+    
+    <h1>CI/CD - Nexus Artifacts Manager - multichoice questions</h1>
+<h2>Question 1</h2>
+<ol>
+<li>_____ combine multiple repositories and other repository groups in a single repository.</li>
+<li>_____ repository is where your organization can publish internal releases in repository.</li>
+<li>_____ is a repository that is linked to a remote repository.</li>
+</ol>
+<p>Which of the below option completes the sentences?</p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox">  Group, Proxy, Hosted</li>
+<li><input type="checkbox">  Hosted, Group, Central</li>
+<li><input type="checkbox">  Central, Hosted, Proxy Group</li>
+<li><input type="checkbox">  Group, Hosted, Proxy</li>
+</ul>
+<h2>Question 2</h2>
+<p>How does a snapshot repository differ from a release repository?</p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> A snapshot repo stores stable, versioned releases, while a release repo contains under development.</li>
+<li><input type="checkbox"> A snapshot repo stores artifacts under development, while a release repo contains stable, versioned releases.</li>
+<li><input type="checkbox"> A snapshot repo stores artifacts for backup, while a release repo contains stable, versioned releases.</li>
+<li><input type="checkbox"> A snapshot repo stores artifacts under development, while a release repo container release candidates.</li>
+</ul>
+<h2>Question 3</h2>
+<p>When creating a repo, under <strong>Maximum component age</strong>, you'll fine the following information:</p>
+<p>"How long (in minutes) to cache artifacts before rechecking the remote repository. Release repositories should use -1."</p>
+<p>Setting the cache duration to -1 means that artifacts in the repo should never expire or recheck the remote repository for updates automatically.</p>
+<p>Why should release repositories have -1? </p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> To reduce network traffic</li>
+<li><input type="checkbox"> To avoid performance overhead</li>
+<li><input type="checkbox"> To enforce version stability</li>
+<li><input type="checkbox"> To ensure build reproducibility</li>
+</ul> 
+    
+        <script>
+    
+            function test(){
+                const studentSolution = {};
+    
+                $('ul').each(function (index) {
+                    if ($(this).find('input[type="checkbox"]').length > 0) {
+                      var ulElement = $(this);
+                      var qNum = ($('ul').index(ulElement) + 1) + '';
+
+                      var answerToken = '' + qNum;
+                      ulElement.find('li').each(function () {
+                        var isChecked = $(this).find('input').prop('checked');
+                        answerToken += isChecked ? '1' : '0';
+
+                      });
+
+                      var hashPromise  = crypto.subtle.digest('SHA-256', new TextEncoder().encode(answerToken))
+                        .then((hashBuffer) => {
+                          var hashArray = Array.from(new Uint8Array(hashBuffer));
+                          var hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+                          return hashHex;
+                        });
+    
+                      studentSolution[qNum] = hashPromise;
+    
+                    }
+                });
+    
+                Promise.allSettled(Object.values(studentSolution))
+                  .then(function (results) {
+                    results.forEach(function (result, i) {
+                       studentSolution[(i + 1) + ''] = result.value;
+                    });
+                }).then(function () {
+
+                    console.log(studentSolution)
+
+                    for (const i in studentSolution) {
+                      console.log('student solution' + studentSolution[i]);
+                      if (solutions[i] === studentSolution[i]) {
+                        $("h2:contains('Question " + i + "'):first").css('color', 'green');
+                      } else {
+                        $("h2:contains('Question " + i + "'):first").css('color', 'red');
+                      }
+                    }
+                });
+            }
+    
+        </script>
+    
+        <input type="button" class="floating-button" value="Test" onclick="test()">
+    
+    </article>
+    </body>
+    </html>
+    
+    

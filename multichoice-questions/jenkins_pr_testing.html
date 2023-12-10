@@ -1,0 +1,128 @@
+
+    
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>
+    CI/CD - Jenkins Pull Request Testing - multichoice questions
+    </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" xmlns="http://www.w3.org/1999/html">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=TextEncoder%2Ccrypto.subtle"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="github-markdown-css.css">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+    
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+            
+            .floating-button {
+              position: fixed;
+              bottom: 20px; /* Adjust the distance from the bottom as needed */
+              right: 20px; /* Adjust the distance from the right as needed */
+              z-index: 9999; /* Ensure the button appears above other elements */
+            }
+        </style>
+        <script>
+            const solutions = {'1': 'af2aef7071ca92fd7c9b80f9eb2263ffacf7d6dae5d0612e1ba4bbc04e04fc47', '2': 'd29d53701d3c859e29e1b90028eec1ca8e2f29439198b6e036c60951fb458aa1', '3': '4787e1998ea0068740a4d43cca83c84fa6233bbc66d12b8d442cda81e46e75ba'}
+        </script>
+    </head>
+    <body>
+    
+    <article class="markdown-body">  
+    
+    <h1>CI/CD - Jenkins Pull Request Testing - multichoice questions</h1>
+<h2>Question 1</h2>
+<p>A developer creates a pull request from <code>smith/fix_connection_str</code> into <code>main</code>. </p>
+<p>Before the code changes would be merged to production branch (<code>main</code>), the code should be tested by the Pull Request Testing pipeline in Jenkins. </p>
+<p>Choose the correct sentence regarding which version of code should be tested: </p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> The <code>smith/fix_connection_str</code> feature branch as is.</li>
+<li><input type="checkbox"> The <code>main</code> branch, after <code>smith/fix_connection_str</code> was merged into it.</li>
+<li><input type="checkbox"> The <code>main</code> branch, before <code>smith/fix_connection_str</code> was merged into it.</li>
+<li><input type="checkbox"> The <code>main</code> branch as is.</li>
+</ul>
+<h2>Question 2</h2>
+<p>When branch <code>main</code> is protected from being pushed from developer's local machines:</p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> Developers can potentially <strong>merge</strong> their branches to the <code>main</code> branch <strong>locally</strong>. </li>
+<li><input type="checkbox"> Developers can not <strong>merge</strong> their branches to the <code>main</code> branch <strong>locally</strong>. </li>
+</ul>
+<h2>Question 3</h2>
+<p>You are working on a project with a team of developers. 
+You want to ensure that the codebase adheres to consistent style guidelines, and coding best practices.</p>
+<p>What type of test should be performed to achieve this goal?</p>
+<ul style="list-style-type: none;">
+<li><input type="checkbox"> Linting Test</li>
+<li><input type="checkbox"> Load Test</li>
+<li><input type="checkbox"> Functional Test</li>
+<li><input type="checkbox"> Unit Test</li>
+</ul> 
+    
+        <script>
+    
+            function test(){
+                const studentSolution = {};
+    
+                $('ul').each(function (index) {
+                    if ($(this).find('input[type="checkbox"]').length > 0) {
+                      var ulElement = $(this);
+                      var qNum = ($('ul').index(ulElement) + 1) + '';
+
+                      var answerToken = '' + qNum;
+                      ulElement.find('li').each(function () {
+                        var isChecked = $(this).find('input').prop('checked');
+                        answerToken += isChecked ? '1' : '0';
+
+                      });
+
+                      var hashPromise  = crypto.subtle.digest('SHA-256', new TextEncoder().encode(answerToken))
+                        .then((hashBuffer) => {
+                          var hashArray = Array.from(new Uint8Array(hashBuffer));
+                          var hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+                          return hashHex;
+                        });
+    
+                      studentSolution[qNum] = hashPromise;
+    
+                    }
+                });
+    
+                Promise.allSettled(Object.values(studentSolution))
+                  .then(function (results) {
+                    results.forEach(function (result, i) {
+                       studentSolution[(i + 1) + ''] = result.value;
+                    });
+                }).then(function () {
+
+                    console.log(studentSolution)
+
+                    for (const i in studentSolution) {
+                      console.log('student solution' + studentSolution[i]);
+                      if (solutions[i] === studentSolution[i]) {
+                        $("h2:contains('Question " + i + "'):first").css('color', 'green');
+                      } else {
+                        $("h2:contains('Question " + i + "'):first").css('color', 'red');
+                      }
+                    }
+                });
+            }
+    
+        </script>
+    
+        <input type="button" class="floating-button" value="Test" onclick="test()">
+    
+    </article>
+    </body>
+    </html>
+    
+    
